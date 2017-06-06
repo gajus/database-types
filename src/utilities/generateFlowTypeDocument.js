@@ -30,7 +30,7 @@ export default (
   const typeNames = Object.keys(groupedProperties);
 
   for (const typeName of typeNames) {
-    const typeProperties = groupedProperties[typeNames];
+    const typeProperties = groupedProperties[typeName];
 
     const typeDeclaration = `
 export type ${typeName} = {|
