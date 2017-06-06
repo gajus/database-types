@@ -10,6 +10,10 @@ A generic type generator for various databases.
 
 The current supported database backend is Postgres. Track [#1 issue](https://github.com/gajus/database-types/issues/1) for MySQL support.
 
+## Use case
+
+If you are developing applications in JavaScript and using either of the strict type systems, then you can use `database-types` to generate types describing the database.
+
 ## Example usage
 
 ### Generating Flow types
