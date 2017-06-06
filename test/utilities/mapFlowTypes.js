@@ -14,11 +14,15 @@ const knownTypes = {
 };
 
 test('correctly maps known types', (t) => {
-  for (const [databaseType, flowType] of Object.entries(knownTypes)) {
+  const databaseTypeNames = Object.keys(knownTypes);
+
+  for (const databaseTypeName of databaseTypeNames) {
+    const flowType = knownTypes[databaseTypeName];
+
     if (typeof flowType !== 'string') {
       throw new TypeError();
     }
 
-    t.true(mapFlowType(databaseType) === flowType, flowType);
+    t.true(mapFlowType(databaseTypeName) === flowType, flowType);
   }
 });
