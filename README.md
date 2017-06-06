@@ -23,7 +23,7 @@ database-types generate > ./types.js
 
 ```
 
-This generates file containing Flow type declartions in the following format:
+This generates file containing Flow type declarations in the following format:
 
 ```js
 export type ReservationSeatRecordType = {|
