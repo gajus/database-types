@@ -23,7 +23,16 @@ import {
 export const command = 'generate';
 export const desc = 'Generate Flow types for a Postgres database.';
 
-export const builder = (yargs: Object): void => {
+type ConfigurationType = {|
+  +columnFilter: string,
+  +databaseConnectionUri: string,
+  +dialect: 'flow',
+  +includeMaterializedViews: boolean,
+  +propertyNameFormatter: string | null,
+  +typeNameFormatter: string | null
+|};
+
+export const builder = (yargs: *): void => {
   yargs
     .options({
       'column-filter': {
@@ -44,17 +53,19 @@ export const builder = (yargs: Object): void => {
         type: 'boolean'
       },
       'property-name-formatter': {
+        default: null,
         description: 'Function used to format property name. Function is constructed using `new Function`. Function receives column name as the first parameter (parameter name is "columnName"). The default behaviour is to (lower) camelCase the column name.',
         type: 'string'
       },
       'type-name-formatter': {
+        default: null,
         description: 'Function used to format type name. Function is constructed using `new Function`. Function receives table name as the first parameter (parameter name is "tableName"). The default behaviour is to (upper) CamelCase the table name and suffix it with "RecordType".',
         type: 'string'
       }
     });
 };
 
-export const handler = async (argv: Object): Promise<void> => {
+export const handler = async (argv: ConfigurationType): Promise<void> => {
   const defaultFormatTypeName = (tableName: string): string => {
     return _.upperFirst(_.camelCase(tableName)) + 'RecordType';
   };
