@@ -2,7 +2,10 @@
 
 /* eslint-disable no-new-func */
 
-import _ from 'lodash';
+import {
+  camelCase,
+  upperFirst
+} from 'lodash';
 import {
   createConnection
 } from 'mightyql';
@@ -70,11 +73,11 @@ type FormatterType = (name: string) => string;
 
 export const handler = async (argv: ConfigurationType): Promise<void> => {
   const defaultFormatTypeName = (tableName: string): string => {
-    return _.upperFirst(_.camelCase(tableName)) + 'RecordType';
+    return upperFirst(camelCase(tableName)) + 'RecordType';
   };
 
   const defaultFormatPropertyName = (columnName: string): string => {
-    return _.camelCase(columnName);
+    return camelCase(columnName);
   };
 
   // eslint-disable-next-line no-extra-parens
