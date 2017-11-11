@@ -20,8 +20,8 @@ import {
   normalizeColumns
 } from '../../utilities';
 
-export const command = 'generate';
-export const desc = 'Generate Flow types for a Postgres database.';
+export const command = 'generate-types';
+export const desc = 'Generate types for a Postgres database.';
 
 type ConfigurationType = {|
   +columnFilter: string,

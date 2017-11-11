@@ -23,7 +23,7 @@ export DATABASE_TYPES_DATABASE_CONNECTION_URI=postgres://postgres:password@127.0
 export DATABASE_TYPES_COLUMN_FILTER="return !['raster_overviews', 'raster_columns', 'geometry_columns', 'geography_columns', 'spatial_ref_sys'].includes(tableName)"
 export DATABASE_TYPES_DIALECT=flow
 
-database-types generate > ./types.js
+database-types generate-types > ./types.js
 
 ```
 
@@ -52,29 +52,7 @@ export type TicketTypeRecordType = {|
 ## CLI
 
 ```bash
-npm install database-types -g
-
-Options:
-  --help                        Show help                              [boolean]
-  --column-filter               Function used to filter columns. Function is
-                                constructed using `new Function`. Function
-                                receives table name as the first parameter and
-                                column name as the second parameter (parameter
-                                names are "tableName" and "columnName").[string]
-  --property-name-formatter     Function used to format property name. Function
-                                is constructed using `new Function`. Function
-                                receives column name as the first parameter
-                                (parameter name is "columnName"). The default
-                                behaviour is to (lower) camelCase the column
-                                name.                                   [string]
-  --type-name-formatter         Function used to format type name. Function is
-                                constructed using `new Function`. Function
-                                receives table name as the first parameter
-                                (parameter name is "tableName"). The default
-                                behaviour is to (upper) CamelCase the table name
-                                and suffix it with "RecordType".        [string]
-  --database-connection-uri                                           [required]
-  --dialect                                         [required] [choices: "flow"]
-  --include-materialized-views                         [boolean] [default: true]
+$ npm install database-types -g
+$ database-types --help
 
 ```
