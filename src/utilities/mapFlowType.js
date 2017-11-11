@@ -15,6 +15,10 @@ export default (databaseTypeName: string): string => {
     return 'string';
   }
 
+  if (databaseTypeName === 'boolean') {
+    return 'boolean';
+  }
+
   if (databaseTypeName === 'bigint' || databaseTypeName === 'integer') {
     return 'number';
   }

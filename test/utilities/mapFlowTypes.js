@@ -5,6 +5,7 @@ import mapFlowType from '../../src/utilities/mapFlowType';
 
 const knownTypes = {
   bigint: 'number',
+  boolean: 'boolean',
   character: 'string',
   coordinates: 'string',
   integer: 'number',
