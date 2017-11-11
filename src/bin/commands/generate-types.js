@@ -65,6 +65,9 @@ export const builder = (yargs: *): void => {
     });
 };
 
+type ColumnFilterType = (tableName: string, columnName: string) => boolean;
+type FormatterType = (name: string) => string;
+
 export const handler = async (argv: ConfigurationType): Promise<void> => {
   const defaultFormatTypeName = (tableName: string): string => {
     return _.upperFirst(_.camelCase(tableName)) + 'RecordType';
@@ -74,9 +77,13 @@ export const handler = async (argv: ConfigurationType): Promise<void> => {
     return _.camelCase(columnName);
   };
 
-  const filterColumns = argv.columnFilter ? new Function('tableName', 'columnName', argv.columnFilter) : null;
-  const formatTypeName = argv.typeNameFormatter ? new Function('columnName', argv.typeNameFormatter) : defaultFormatTypeName;
-  const formatPropertyName = argv.propertyNameFormatter ? new Function('tableName', argv.propertyNameFormatter) : defaultFormatPropertyName;
+  // eslint-disable-next-line no-extra-parens
+  const filterColumns: ColumnFilterType = (argv.columnFilter ? new Function('tableName', 'columnName', argv.columnFilter) : null: any);
+
+  // eslint-disable-next-line no-extra-parens
+  const formatTypeName: FormatterType = (argv.typeNameFormatter ? new Function('columnName', argv.typeNameFormatter) : defaultFormatTypeName: any);
+  // eslint-disable-next-line no-extra-parens
+  const formatPropertyName: FormatterType = (argv.propertyNameFormatter ? new Function('tableName', argv.propertyNameFormatter) : defaultFormatPropertyName: any);
 
   const createProperties = (columns: $ReadOnlyArray<ColumnType>): $ReadOnlyArray<TypePropertyType> => {
     let filteredColumns = columns;
@@ -89,13 +96,9 @@ export const handler = async (argv: ConfigurationType): Promise<void> => {
     }
 
     return filteredColumns.map((column) => {
-      // $FlowFixMe
       return {
-        // $FlowFixMe
         name: formatPropertyName(column.columnName),
         type: mapFlowType(column.databaseType) + (column.nullable ? ' | null' : ''),
-
-        // $FlowFixMe
         typeName: formatTypeName(column.tableName)
       };
     });
